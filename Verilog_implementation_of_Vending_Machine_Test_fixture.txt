@@ -1,0 +1,124 @@
+`timescale 1ns / 1ps
+
+////////////////////////////////////////////////////////////////////////////////
+// Company: Puducherry Technological University
+// Engineer:Dheepak_G
+//
+// Create Date:   14:39:59 07/18/2021
+// Design Name:   Vending_machine_3ip
+// Module Name:   D:/Xilinx/vending_machine_3ips_test.v
+// Project Name:  Sequencedetector_RAM_ROM
+// Target Device:  
+// Tool versions:  
+// Description: 
+//
+// Verilog Test Fixture created by ISE for module: Vending_machine_3ip
+//
+// Dependencies:
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+////////////////////////////////////////////////////////////////////////////////
+
+module vending_machine_3ips_test;
+
+	// Inputs
+	reg [1:0] coin_ip;
+	reg Coin;
+	reg Resetn;
+
+	// Outputs
+	wire Z;
+
+	// Instantiate the Unit Under Test (UUT)
+	Vending_machine_3ip uut (
+		.coin_ip(coin_ip), 
+		.Coin(Coin), 
+		.Resetn(Resetn), 
+		.Z(Z)
+	);
+
+	initial begin
+		Resetn=1'b0;		//active low reset 
+		Coin=1'b0;			//clock input
+		#10 Resetn=1'b1;  //active low reset 
+		
+		//output case 1
+		#10 coin_ip=2'b00;// coin quarter-5
+		#10 coin_ip=2'b00;// coin quarter-5
+		#10 coin_ip=2'b00;// coin quarter-5
+		#10 coin_ip=2'b00;// coin quarter-5
+		#10 coin_ip=2'b00;// coin quarter-5
+		#10 coin_ip=2'b00;// coin quarter-5
+		//total=30 and output is 1
+		
+		//output case 2
+		#10 coin_ip=2'b01;//coin Dime-10
+		#10 coin_ip=2'b01;//coin Dime-10
+		#10 coin_ip=2'b01;//coin Dime-10
+		//total=30 and output is 1
+		
+		//output case 3
+		#10 coin_ip=2'b11;//coin Nickel-15
+		#10 coin_ip=2'b11;//coin Nickel-15
+		//Total=30 and output is 1
+		
+		//output case 4
+		#10 coin_ip=2'b00;// coin quarter-5
+		#10 coin_ip=2'b01;//coin Dime-10
+		#10 coin_ip=2'b11;//coin Nickel-15
+		//Total=30 and output is 1
+		
+		//output case 5
+		#10 coin_ip=2'b00;// coin quarter-5
+		#10 coin_ip=2'b01;//coin Dime-10
+		#10 coin_ip=2'b01;//coin Dime-10
+		#10 coin_ip=2'b11;//coin Nickel-15
+		//total=30 and output is 1
+
+		//output case 6
+		#10 coin_ip=2'b01;//coin Dime-10
+		#10 coin_ip=2'b11;//coin Nickel-15
+		#10 coin_ip=2'b00;// coin quarter-5
+		//total=30 and output is 1
+		
+		//output case 7
+		
+		#10 coin_ip=2'b11;//coin Nickel-15
+		#10 coin_ip=2'b00;// coin quarter-5
+		#10 coin_ip=2'b00;// coin quarter-5
+		#10 coin_ip=2'b00;// coin quarter-5
+		//total=30 and output is 1
+		
+		//output case 8
+		#10 coin_ip=2'b01;//coin Dime-10
+		#10 coin_ip=2'b11;//coin Nickel-15
+		#10 coin_ip=2'b01;//coin Dime-10
+		//total=30 and output is 1
+		
+		//output case 9
+		#10 coin_ip=2'b00;// coin quarter-5
+		#10 coin_ip=2'b11;//coin Nickel-15
+		#10 coin_ip=2'b11;//coin Nickel-15
+		//total=30 and output is 1
+		
+		//output case 10
+		#10 coin_ip=2'b01;//coin Dime-10
+		#10 coin_ip=2'b00;// coin quarter-5
+		#10 coin_ip=2'b01;//coin Dime-10
+		#10 coin_ip=2'b11;//coin Nickel-15
+		//total=30 and output is 1
+		
+		end
+
+		always			//clock generation
+			begin
+				#5 Coin=~Coin;
+		end
+
+
+	      
+endmodule
+
